@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('Edit Todo')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div class="grid-container">
+    <div th:replace="layout :: flash(${message})"></div>
+    <div th:replace="layout :: white-space"></div>
+    <h2>Edit Todo</h2>
+    <form th:object="${editedTodo}" th:method="post" th:action="@{|/todos/${editedTodo.id}/update|}">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="grid-x grid-padding-x">
+            <div class="medium-6 cell">
+                <label th:classappend="${#fields.hasErrors('content')}? 'is-invalid-label' : ''"> Todo Content
+                    <input th:classappend="${#fields.hasErrors('content')}? 'is-invalid-input' : ''"
+                           th:field="*{content}" id="title" type="text">
+                    <span th:classappend="${#fields.hasErrors('content')}? 'form-error is-visible' : ''"
+                          th:errors="*{content}"></span>
+                </label>
+            </div>
+            <div class="medium-6 cell">
+                <div class="pretty p-icon p-round p-jelly">
+                    <input th:field="*{completed}" type="checkbox">
+                    <div class="state p-primary">
+                        <label style="font-size: 50px;">Todo Status</label>
+                        <i style="font-size: 50px;" class="icon mdi mdi-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+            <div class="medium-6 cell">
+                <button type="submit" class="large button">Save Changes</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

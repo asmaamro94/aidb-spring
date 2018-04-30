@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('Todos')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div class="grid-container">
+    <div th:replace="layout :: flash(${message})"></div>
+    <div th:replace="layout :: white-space"></div>
+    <h2>New Todo</h2>
+    <form th:object="${newTodo}" th:method="post" th:action="@{|/todos/create|}">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="grid-x grid-padding-x">
+            <div class="medium-6 cell">
+                <label th:classappend="${#fields.hasErrors('content')}? 'is-invalid-label' : ''"> Todo Content
+                    <input th:classappend="${#fields.hasErrors('content')}? 'is-invalid-input' : ''"
+                           th:field="*{content}" id="content" type="text">
+                    <span th:classappend="${#fields.hasErrors('content')}? 'form-error is-visible' : ''"
+                          th:errors="*{content}"></span>
+                </label>
+            </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+            <div class="medium-6 cell">
+                <button type="submit" class="large button">Create New Todo</button>
+            </div>
+        </div>
+    </form>
+    <div th:replace="layout :: white-space"></div>
+
+    <h2>Todos</h2>
+    <table>
+        <thead>
+        <tr>
+            <th width="200">Todo Content</th>
+            <th width="150">Todo Status</th>
+            <th width="150">Edit Todo</th>
+            <th width="150">Delete Todo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo: ${todos}" >
+            <td><h3 th:text="*{todo.content}"></h3></td>
+            <td>
+                <div class="pretty p-icon p-round p-jelly">
+                    <input th:checked="${todo.completed}"  disabled  type="checkbox">
+                    <div class="state p-primary">
+                        <label style="font-size: 20px;"></label>
+                        <i style="font-size: 20px;" class="icon mdi mdi-check"></i>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <a th:href="@{|/todos/${todo.id}/edit|}" class="button warning">Edit</a>
+            </td>
+            <td>
+                <form th:id="|todo-delete-form-${todo.id}|" th:method="post" th:action="@{|/todos/${todo.id}/delete|}">
+                    <a class="todo-delete-link button alert" th:href="@{${todo.id}}" >Delete</a>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

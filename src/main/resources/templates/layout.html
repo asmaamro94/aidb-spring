@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head  th:fragment="head(page_title)" lang="en">
+    <meta charset="UTF-8"/>
+    <meta description="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.3.54/css/materialdesignicons.min.css">
+    <link rel="stylesheet" th:href="@{/css/foundation.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/pretty-checkbox.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/x0popup.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+    <title th:text="'Todos | ' + ${page_title}"></title>
+
+</head>
+<body>
+<nav th:fragment="nav">
+    <div class="title-bar" data-responsive-toggle="responsive-menu" data-hide-for="medium">
+        <button class="menu-icon" type="button" data-toggle="responsive-menu"></button>
+        <div class="title-bar-title">Menu</div>
+    </div>
+
+    <div class="top-bar" id="responsive-menu">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li class="menu-text"><a href="/todos/">Todos</a></li></ul>
+        </div>
+
+    </div>
+</nav>
+
+<div th:fragment="white-space">
+    <br />
+    <br />
+</div>
+
+<div th:fragment="scripts">
+    <script type="text/javascript" th:src="@{/js/vendor/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/vendor/foundation.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/vendor/what-input.js}"></script>
+    <script type="text/javascript" th:src="@{/js/x0popup.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/app.js}"></script>
+</div>
+
+<div th:fragment="flash(message)" th:if="${message}" >
+    <br />
+    <div class="alert callout">
+        <p th:text="${message}"><i class="fi-alert"></i></p>
+    </div>
+</div>
+
+</body>
+</html>
